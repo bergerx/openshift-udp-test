@@ -1,0 +1,11 @@
+docker build -t bergerx/openshift-udp-test .
+docker push bergerx/openshift-udp-test
+
+oc delete all --all
+oc create -f src.yaml
+oc create -f dst.yaml
+
+oc logs -f $(oc get pods | awk '/dst/{print $1}')
+oc logs -f $(oc get pods | awk '/src/{print $1}')
+
+oc deploy dc/dst --latest
