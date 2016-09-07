@@ -1,7 +1,9 @@
 docker build -t bergerx/openshift-udp-test .
 docker push bergerx/openshift-udp-test
 
-oc delete all --all
+oc new-project test-`whoami`
+#oc project test-`whoami`
+#oc delete all --all
 oc create -f src.yaml
 oc create -f dst.yaml
 
